@@ -137,7 +137,7 @@ function App() {
               Voice calls, legal data, policy maps, Slack feeds, menu bar apps, Git-native documents.
             </h2>
             <p>
-              Repos are linked where public. Private product work is shown through artifacts, not repository access.
+              Repos are linked where public. Proprietary product work is shown through artifacts, not repository access.
             </p>
           </div>
         </section>
@@ -253,7 +253,7 @@ function App() {
         <section className="final-cta" aria-labelledby="contact-title">
           <div>
             <p className="eyebrow">GitHub Pages</p>
-            <h2 id="contact-title">Public repos up front. Private work shown by shape.</h2>
+            <h2 id="contact-title">Full-stack lawyer.</h2>
           </div>
           <div className="cta-actions">
             <a className="primary-action" href="https://github.com/l0cka" target="_blank" rel="noreferrer">
