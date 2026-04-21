@@ -114,25 +114,70 @@ a:focus-visible {
   position: absolute;
   inset: 0;
   z-index: -2;
+  opacity: 0.9;
+  perspective: 1200px;
+}
+
+.hero-panel {
+  position: absolute;
+  right: clamp(18px, 6vw, 86px);
+  width: min(39vw, 560px);
+  min-height: 210px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  transform: rotate(-4deg) scale(1.18) translate(15%, 0);
-  opacity: 0.88;
-  filter: saturate(0.82) contrast(1.08);
-}
-
-.hero-backdrop img {
-  width: 100%;
-  height: 44vh;
-  object-fit: cover;
+  align-content: end;
+  gap: 12px;
+  padding: clamp(22px, 3vw, 38px);
+  border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 36px 110px rgba(0, 0, 0, 0.45);
+  background:
+    linear-gradient(135deg, rgba(246, 240, 231, 0.12), transparent 54%),
+    rgba(246, 240, 231, 0.05);
+  box-shadow: 0 36px 110px rgba(0, 0, 0, 0.5);
+  transform: rotate(-5deg);
 }
 
-.hero-backdrop img:first-child {
-  grid-row: span 2;
-  height: 90vh;
+.hero-panel span {
+  color: #ffb199;
+  font-size: 0.82rem;
+  font-weight: 820;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-panel strong {
+  font-size: clamp(2.4rem, 5vw, 5.4rem);
+  line-height: 0.88;
+}
+
+.hero-panel p {
+  margin: 0;
+  color: rgba(246, 240, 231, 0.62);
+}
+
+.hero-panel-call {
+  top: 11%;
+}
+
+.hero-panel-policy {
+  top: 38%;
+  right: clamp(50px, 14vw, 220px);
+  transform: rotate(3deg);
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(246, 240, 231, 0.08) 0,
+      rgba(246, 240, 231, 0.08) 1px,
+      transparent 1px,
+      transparent 42px
+    ),
+    rgba(246, 240, 231, 0.04);
+}
+
+.hero-panel-code {
+  top: 65%;
+  right: clamp(0px, 4vw, 68px);
+  transform: rotate(-2deg);
+  background: #10100e;
 }
 
 .hero-content {
@@ -387,21 +432,36 @@ a:focus-visible {
   letter-spacing: 0;
 }
 
-.project-summary,
-.project-detail {
+.project-summary {
   max-width: 720px;
   margin: 18px 0 0;
   line-height: 1.5;
-}
-
-.project-summary {
   color: var(--ink);
   font-size: clamp(1.08rem, 1.7vw, 1.35rem);
 }
 
-.project-detail {
+.proof-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  max-width: 680px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.proof-list li {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 0.95rem;
+}
+
+.proof-list svg {
+  flex: 0 0 auto;
+  color: var(--accent);
 }
 
 .stack-list {
@@ -441,59 +501,408 @@ a:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 68%, rgba(255, 255, 255, 0.1));
 }
 
-.project-visual img {
+.artifact {
+  min-height: 100%;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transform: scale(1.02);
-}
-
-.generated-surface {
-  height: 100%;
-  display: grid;
-  align-content: end;
-  gap: 14px;
-  padding: clamp(20px, 3vw, 34px);
+  padding: clamp(18px, 2.4vw, 32px);
+  color: var(--ink);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 45%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent 54%),
     repeating-linear-gradient(
       0deg,
-      rgba(246, 240, 231, 0.06) 0,
-      rgba(246, 240, 231, 0.06) 1px,
+      rgba(246, 240, 231, 0.055) 0,
+      rgba(246, 240, 231, 0.055) 1px,
       transparent 1px,
-      transparent 34px
+      transparent 36px
     ),
-    #1d1a16;
+    #1a1815;
 }
 
-.generated-surface span {
-  color: var(--accent);
+.artifact-topline,
+.matrix-row,
+.queue-item,
+.news-row,
+.booking-ticket,
+.search-result,
+.dictation-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid rgba(246, 240, 231, 0.12);
+  border-radius: 6px;
+  background: rgba(246, 240, 231, 0.055);
+}
+
+.artifact span,
+.artifact p,
+.terminal-line,
+.audit-line,
+.slack-digest {
+  color: rgba(246, 240, 231, 0.66);
+}
+
+.artifact span,
+.artifact-topline strong,
+.booking-ticket span,
+.search-result span,
+.dictation-card span,
+.audit-line,
+.slack-digest {
   font-size: 0.78rem;
-  font-weight: 780;
+}
+
+.artifact-topline,
+.booking-ticket,
+.search-result,
+.dictation-card {
+  padding: 13px 14px;
+}
+
+.artifact-calls {
+  display: grid;
+  align-content: space-between;
+  gap: 14px;
+}
+
+.call-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border-radius: 8px;
+  background: rgba(246, 240, 231, 0.93);
+  color: #151310;
+}
+
+.call-card span,
+.call-card p {
+  color: rgba(21, 19, 16, 0.62);
+}
+
+.call-card strong {
+  font-size: clamp(1.5rem, 3vw, 2.7rem);
+  line-height: 1;
+}
+
+.call-card p {
+  margin: 0;
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.flow-steps span {
+  min-height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 22%, rgba(246, 240, 231, 0.08));
+  color: var(--ink);
+  font-weight: 720;
+}
+
+.booking-ticket {
+  color: var(--ink);
+}
+
+.booking-ticket strong {
+  font-size: 0.95rem;
+}
+
+.artifact-policy {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.matrix-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 0.36fr;
+  padding: 11px 12px;
+}
+
+.matrix-head {
+  color: var(--accent);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.map-strip {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr 1.15fr 0.72fr;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.map-strip span {
+  height: 42px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent) 32%, rgba(246, 240, 231, 0.1));
+}
+
+.artifact-agent {
+  display: grid;
+  align-content: space-between;
+  gap: 16px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.terminal-line {
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.terminal-line.success {
+  color: var(--accent);
+}
+
+.agent-orbit {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.agent-orbit span,
+.agent-orbit strong {
+  min-height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 240, 231, 0.14);
+}
+
+.agent-orbit strong {
+  min-height: 84px;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  color: #151310;
+  background: var(--accent);
+}
+
+.artifact-legalops {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.queue-item,
+.news-row {
+  padding: 14px 15px;
+}
+
+.queue-item strong,
+.news-row strong {
+  color: var(--accent);
+}
+
+.audit-line,
+.slack-digest {
+  margin-top: 8px;
+  padding: 14px;
+  border-left: 2px solid var(--accent);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.artifact-market {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 18px;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: end;
+  gap: 9px;
+  min-height: 210px;
+  padding: 18px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.chart-bars span {
+  flex: 1;
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(180deg, var(--accent), rgba(246, 240, 231, 0.2));
+}
+
+.market-map {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.market-map span,
+.market-map strong {
+  min-height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(246, 240, 231, 0.08);
+}
+
+.market-map strong {
+  color: #151310;
+  background: var(--accent);
+}
+
+.artifact-gitlaw {
+  display: grid;
+  align-content: center;
+  gap: 9px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.diff-line {
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.diff-line.add {
+  color: #86efac;
+}
+
+.diff-line.remove {
+  color: #fca5a5;
+}
+
+.repo-tree {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.repo-tree span {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: rgba(246, 240, 231, 0.08);
+}
+
+.artifact-legislation {
+  display: grid;
+  align-content: space-between;
+  gap: 18px;
+}
+
+.doc-page {
+  min-height: 245px;
+  display: grid;
+  align-content: end;
+  gap: 10px;
+  padding: 22px;
+  border-radius: 8px;
+  color: #151310;
+  background: #f6f0e7;
+}
+
+.doc-page span,
+.doc-page p {
+  color: rgba(21, 19, 16, 0.62);
+}
+
+.doc-page strong {
+  font-size: clamp(2.1rem, 4vw, 4.3rem);
+  line-height: 0.94;
+}
+
+.doc-page p {
+  margin: 0;
+}
+
+.search-result strong,
+.dictation-card strong {
+  font-size: 1.15rem;
+}
+
+.artifact-dictation {
+  display: grid;
+  align-content: center;
+  gap: 20px;
+}
+
+.waveform {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 22px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.waveform span {
+  width: 12px;
+  min-height: 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), rgba(246, 240, 231, 0.18));
+}
+
+.artifact-bridge {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr 60px 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+.bridge-node {
+  min-height: 122px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(246, 240, 231, 0.15);
+  border-radius: 8px;
+  background: rgba(246, 240, 231, 0.07);
+  font-weight: 800;
+}
+
+.bridge-node.center {
+  min-height: 160px;
+  color: #151310;
+  background: var(--accent);
+}
+
+.bridge-line {
+  height: 2px;
+  background: var(--accent);
+}
+
+.artifact-news {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+}
+
+.artifact-archive {
+  display: grid;
+  align-content: end;
+  gap: 13px;
+}
+
+.artifact-archive span {
+  color: var(--accent);
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.generated-surface strong {
-  font-size: clamp(2rem, 4vw, 4.2rem);
+.artifact-archive strong {
+  font-size: clamp(2.1rem, 4vw, 4.4rem);
   line-height: 0.92;
 }
 
-.generated-surface div {
-  height: 10px;
-  max-width: 86%;
-  border-radius: 999px;
-  background: rgba(246, 240, 231, 0.12);
-}
-
-.generated-surface div:nth-of-type(2) {
-  max-width: 62%;
-}
-
-.generated-surface div:nth-of-type(3) {
-  max-width: 74%;
-  background: color-mix(in srgb, var(--accent) 48%, rgba(246, 240, 231, 0.1));
+.artifact-archive p {
+  margin: 0;
 }
 
 .project-links {
@@ -648,16 +1057,31 @@ a:focus-visible {
   }
 
   .hero-backdrop {
-    grid-template-columns: 1fr;
-    transform: rotate(-3deg) scale(1.15) translate(2%, -4%);
+    transform: translateY(-3%);
   }
 
-  .hero-backdrop img {
-    height: 36vh;
+  .hero-panel {
+    right: -22vw;
+    width: 82vw;
+    min-height: 160px;
+    padding: 20px;
   }
 
-  .hero-backdrop img:first-child {
-    height: 44vh;
+  .hero-panel strong {
+    font-size: clamp(2.3rem, 11vw, 4.4rem);
+  }
+
+  .hero-panel-call {
+    top: 9%;
+  }
+
+  .hero-panel-policy {
+    top: 35%;
+    right: -34vw;
+  }
+
+  .hero-panel-code {
+    top: 60%;
   }
 
   .hero h1 {
@@ -693,6 +1117,37 @@ a:focus-visible {
   .project-visual {
     grid-column: auto;
     aspect-ratio: 1.2;
+  }
+
+  .proof-list {
+    grid-template-columns: 1fr;
+  }
+
+  .artifact-bridge {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bridge-line {
+    width: 2px;
+    height: 26px;
+    justify-self: center;
+  }
+
+  .repo-tree,
+  .market-map {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-ticket,
+  .search-result,
+  .dictation-card {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .booking-ticket strong {
+    line-height: 1.35;
   }
 
   .archive-item {

@@ -2,15 +2,20 @@ import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Check,
   Code2,
   ExternalLink,
   Github,
   Layers3,
   Mail,
   Monitor,
-  Sparkles,
 } from "lucide-react";
-import { archiveProjects, featuredProjects, type ProjectKind } from "./data/projects";
+import {
+  archiveProjects,
+  featuredProjects,
+  type Project,
+  type ProjectKind,
+} from "./data/projects";
 
 const filters: Array<"All" | ProjectKind> = [
   "All",
@@ -31,7 +36,7 @@ function App() {
   }, [activeFilter]);
 
   const publicCount = featuredProjects.filter((project) => project.links.repo).length;
-  const liveCount = featuredProjects.filter((project) => project.links.live).length;
+  const liveLinkCount = featuredProjects.filter((project) => project.links.live).length;
 
   return (
     <>
@@ -52,9 +57,21 @@ function App() {
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-backdrop" aria-hidden="true">
-            <img src="/assets/policai.png" alt="" />
-            <img src="/assets/tideflow.png" alt="" />
-            <img src="/assets/openclaw.png" alt="" />
+            <div className="hero-panel hero-panel-call">
+              <span>+61 412 558 901</span>
+              <strong>Booked</strong>
+              <p>blocked drain / 8:00 AM / $280</p>
+            </div>
+            <div className="hero-panel hero-panel-policy">
+              <span>AI usage policy</span>
+              <strong>63 sources</strong>
+              <p>federal / state / courts / agencies</p>
+            </div>
+            <div className="hero-panel hero-panel-code">
+              <span>main</span>
+              <strong>npm run build</strong>
+              <p>2,100 modules transformed</p>
+            </div>
           </div>
           <div className="hero-content">
             <motion.p
@@ -63,7 +80,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
             >
-              Software, legal tech, AI systems
+              Work samples / 2026
             </motion.p>
             <motion.h1
               id="hero-title"
@@ -71,7 +88,7 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.08 }}
             >
-              l0cka builds practical AI products and sharp developer tools.
+              Calls booked. Policies mapped. Tools shipped.
             </motion.h1>
             <motion.div
               className="hero-actions"
@@ -101,27 +118,26 @@ function App() {
             <span>public repos linked</span>
           </div>
           <div>
-            <strong>{liveCount}</strong>
-            <span>live products</span>
+            <strong>{liveLinkCount}</strong>
+            <span>live links</span>
           </div>
           <div>
             <strong>2026</strong>
-            <span>active build year</span>
+            <span>build log</span>
           </div>
         </section>
 
         <section className="section intro-band" aria-labelledby="intro-title">
           <div className="section-kicker">
-            <Sparkles size={19} aria-hidden="true" />
-            Current direction
+            <Code2 size={19} aria-hidden="true" />
+            Field notes
           </div>
           <div className="intro-grid">
             <h2 id="intro-title">
-              Products that sit close to real workflows: calls, policy, legal operations, market data, and local AI utilities.
+              Voice calls, legal data, policy maps, Slack feeds, menu bar apps, Git-native documents.
             </h2>
             <p>
-              The work spans public experiments, production systems, open-source connectors, and private apps.
-              Public repositories are linked directly; private product work is shown as portfolio context only.
+              Repos are linked where public. Private product work is shown through artifacts, not repository access.
             </p>
           </div>
         </section>
@@ -133,7 +149,7 @@ function App() {
                 <Layers3 size={19} aria-hidden="true" />
                 Selected work
               </div>
-              <h2 id="work-title">A compact index of the strongest projects.</h2>
+              <h2 id="work-title">Artifacts from the build bench.</h2>
             </div>
             <div className="filter-bar" aria-label="Filter projects">
               {filters.map((filter) => (
@@ -168,8 +184,15 @@ function App() {
                     <span>{project.year}</span>
                   </div>
                   <h3>{project.name}</h3>
-                  <p className="project-summary">{project.summary}</p>
-                  <p className="project-detail">{project.detail}</p>
+                  <p className="project-summary">{project.line}</p>
+                  <ul className="proof-list" aria-label={`${project.name} evidence`}>
+                    {project.proof.map((item) => (
+                      <li key={item}>
+                        <Check size={15} aria-hidden="true" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                   <div className="stack-list" aria-label={`${project.name} stack`}>
                     {project.stack.map((item) => (
                       <span key={item}>{item}</span>
@@ -177,17 +200,7 @@ function App() {
                   </div>
                 </div>
                 <div className="project-visual">
-                  {project.image ? (
-                    <img src={project.image} alt={`${project.name} project screenshot`} loading="lazy" />
-                  ) : (
-                    <div className="generated-surface" aria-hidden="true">
-                      <span>{project.signal}</span>
-                      <strong>{project.name}</strong>
-                      <div />
-                      <div />
-                      <div />
-                    </div>
-                  )}
+                  <ProjectArtifact project={project} />
                 </div>
                 <div className="project-links" aria-label={`${project.name} links`}>
                   {project.links.live ? (
@@ -212,9 +225,9 @@ function App() {
             GitHub archive
           </div>
           <div className="archive-heading">
-            <h2 id="archive-title">Earlier and smaller public repositories.</h2>
+            <h2 id="archive-title">Smaller public traces.</h2>
             <p>
-              These round out the public GitHub profile without competing with the featured work.
+              Earlier repos, research code, utility work, and prototypes.
             </p>
           </div>
 
@@ -230,7 +243,7 @@ function App() {
               >
                 <span className="archive-dot" />
                 <strong>{project.name}</strong>
-                <span>{project.summary}</span>
+                <span>{project.line}</span>
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             ))}
@@ -239,8 +252,8 @@ function App() {
 
         <section className="final-cta" aria-labelledby="contact-title">
           <div>
-            <p className="eyebrow">Available surface</p>
-            <h2 id="contact-title">Repos, product work, and local experiments in one place.</h2>
+            <p className="eyebrow">GitHub Pages</p>
+            <h2 id="contact-title">Public repos up front. Private work shown by shape.</h2>
           </div>
           <div className="cta-actions">
             <a className="primary-action" href="https://github.com/l0cka" target="_blank" rel="noreferrer">
@@ -255,6 +268,187 @@ function App() {
         </section>
       </main>
     </>
+  );
+}
+
+function ProjectArtifact({ project }: { project: Project }) {
+  if (project.visual === "calls") {
+    return (
+      <div className="artifact artifact-calls" aria-label={`${project.name} call flow artifact`}>
+        <div className="artifact-topline">
+          <span>missed call</span>
+          <strong>02:14 AM</strong>
+        </div>
+        <div className="call-card">
+          <span>+61 412 558 901</span>
+          <strong>Blocked laundry drain</strong>
+          <p>"Can you do first thing tomorrow?"</p>
+        </div>
+        <div className="flow-steps">
+          <span>transcript</span>
+          <span>qualified</span>
+          <span>booked</span>
+        </div>
+        <div className="booking-ticket">
+          <span>Action taken</span>
+          <strong>8:00 AM - HWS diagnostic - $280</strong>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "policy") {
+    return (
+      <div className="artifact artifact-policy" aria-label={`${project.name} policy matrix artifact`}>
+        <div className="matrix-row matrix-head">
+          <span>Jurisdiction</span>
+          <span>Status</span>
+          <span>Source</span>
+        </div>
+        {["Commonwealth", "NSW", "Victoria", "Queensland", "Courts"].map((label, index) => (
+          <div className="matrix-row" key={label}>
+            <span>{label}</span>
+            <span>{index === 0 ? "Updated" : index === 4 ? "Mapped" : "Tracked"}</span>
+            <span>{String(index + 18).padStart(2, "0")}</span>
+          </div>
+        ))}
+        <div className="map-strip">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "agent") {
+    return (
+      <div className="artifact artifact-agent" aria-label={`${project.name} command surface artifact`}>
+        <div className="terminal-line">$ openclaw run inbox</div>
+        <div className="terminal-line muted">scan mail, calendar, tasks</div>
+        <div className="agent-orbit">
+          <span>mail</span>
+          <span>files</span>
+          <strong>agent</strong>
+          <span>chat</span>
+          <span>web</span>
+        </div>
+        <div className="terminal-line success">7 actions staged</div>
+      </div>
+    );
+  }
+
+  if (project.visual === "legalops") {
+    return (
+      <div className="artifact artifact-legalops" aria-label={`${project.name} legal queue artifact`}>
+        {["MSA review", "DPA renewal", "Board approval", "Privacy request"].map((item, index) => (
+          <div className="queue-item" key={item}>
+            <span>{item}</span>
+            <strong>{["P1", "P2", "P3", "P2"][index]}</strong>
+          </div>
+        ))}
+        <div className="audit-line">audit log: 148 events</div>
+      </div>
+    );
+  }
+
+  if (project.visual === "market") {
+    return (
+      <div className="artifact artifact-market" aria-label={`${project.name} market chart artifact`}>
+        <div className="chart-bars">
+          {[42, 68, 51, 82, 73, 92, 65, 88].map((height, index) => (
+            <span key={index} style={{ height: `${height}%` }} />
+          ))}
+        </div>
+        <div className="market-map">
+          <span>WA LNG</span>
+          <strong>APAC</strong>
+          <span>Japan/Korea</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "gitlaw") {
+    return (
+      <div className="artifact artifact-gitlaw" aria-label={`${project.name} diff artifact`}>
+        <div className="diff-line add">+ clause.payment.terms = 14 days</div>
+        <div className="diff-line keep">  schema.validate(contract)</div>
+        <div className="diff-line remove">- approval = email thread</div>
+        <div className="repo-tree">
+          <span>@gitlaw/core</span>
+          <span>@gitlaw/cli</span>
+          <span>@gitlaw/web</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "legislation") {
+    return (
+      <div className="artifact artifact-legislation" aria-label={`${project.name} legislation artifact`}>
+        <div className="doc-page">
+          <span>AGED CARE ACT</span>
+          <strong>Part 4.3</strong>
+          <p>responsibilities / providers / standards / enforcement</p>
+        </div>
+        <div className="search-result">
+          <span>Search</span>
+          <strong>"approved provider"</strong>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "dictation") {
+    return (
+      <div className="artifact artifact-dictation" aria-label={`${project.name} dictation artifact`}>
+        <div className="waveform">
+          {[20, 54, 82, 38, 66, 92, 28, 74, 46, 84, 34, 60].map((height, index) => (
+            <span key={index} style={{ height: `${height}%` }} />
+          ))}
+        </div>
+        <div className="dictation-card">
+          <span>00:47 captured</span>
+          <strong>Clean paragraph ready</strong>
+        </div>
+      </div>
+    );
+  }
+
+  if (project.visual === "bridge") {
+    return (
+      <div className="artifact artifact-bridge" aria-label={`${project.name} connector artifact`}>
+        <div className="bridge-node">iMessage</div>
+        <div className="bridge-line" />
+        <div className="bridge-node center">macOS host</div>
+        <div className="bridge-line" />
+        <div className="bridge-node">Slack</div>
+      </div>
+    );
+  }
+
+  if (project.visual === "news") {
+    return (
+      <div className="artifact artifact-news" aria-label={`${project.name} digest artifact`}>
+        {["Reuters energy", "Benzinga markets", "ASX filings"].map((source, index) => (
+          <div className="news-row" key={source}>
+            <span>{source}</span>
+            <strong>{[92, 84, 78][index]}</strong>
+          </div>
+        ))}
+        <div className="slack-digest">#market-news / 08:30 digest</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="artifact artifact-archive" aria-label={`${project.name} archive artifact`}>
+      <span>{project.kind}</span>
+      <strong>{project.name}</strong>
+      <p>{project.line}</p>
+    </div>
   );
 }
 

@@ -6,24 +6,35 @@ export type ProjectKind =
   | "Research"
   | "Native";
 
-export type ProjectStatus = "Public" | "Private" | "Live" | "Local";
+export type ProjectStatus = "Public" | "Private" | "Live" | "Local" | "Contributor";
+
+export type ProjectVisual =
+  | "calls"
+  | "policy"
+  | "agent"
+  | "legalops"
+  | "market"
+  | "gitlaw"
+  | "legislation"
+  | "dictation"
+  | "bridge"
+  | "news"
+  | "archive";
 
 export type Project = {
   name: string;
   kind: ProjectKind;
   status: ProjectStatus;
   year: string;
-  summary: string;
-  detail: string;
+  line: string;
+  proof: string[];
   stack: string[];
   links: {
     repo?: string;
     live?: string;
   };
-  image?: string;
   accent: string;
-  signal: string;
-  featured?: boolean;
+  visual: ProjectVisual;
 };
 
 export const featuredProjects: Project[] = [
@@ -32,165 +43,141 @@ export const featuredProjects: Project[] = [
     kind: "Product",
     status: "Private",
     year: "2026",
-    summary: "AI missed-call handling for Australian service businesses.",
-    detail:
-      "A production monorepo spanning a Next.js app, voice worker, Supabase, realtime tool calls, and operational contract tests.",
+    line: "Missed call -> qualified lead -> booked job.",
+    proof: ["Realtime voice worker", "Supabase call ledger", "Tool-call contracts", "Nx monorepo"],
     stack: ["TypeScript", "Next.js", "Supabase", "OpenAI Realtime", "Nx"],
     links: {
       live: "https://www.tideflow.au/",
     },
-    image: "/assets/tideflow.png",
     accent: "#ff5a3d",
-    signal: "production system",
-    featured: true,
+    visual: "calls",
   },
   {
     name: "Policai",
     kind: "Legal tech",
     status: "Live",
     year: "2026",
-    summary: "Australian AI policy tracker across federal, state, and agency sources.",
-    detail:
-      "Combines structured policy data, court and agency context, timelines, maps, editorial pages, and a tested Next.js surface.",
+    line: "Australian AI policy, agencies, courts, and timelines.",
+    proof: ["Policy matrix", "Agency directory", "Australia map", "Court position tracking"],
     stack: ["TypeScript", "Next.js", "Supabase", "D3", "Vitest"],
     links: {
       repo: "https://github.com/l0cka/policai",
       live: "https://policai.vercel.app",
     },
-    image: "/assets/policai.png",
     accent: "#b9ff66",
-    signal: "public civic intelligence",
-    featured: true,
+    visual: "policy",
   },
   {
     name: "OpenClaw",
-    kind: "Product",
-    status: "Live",
+    kind: "Open source",
+    status: "Contributor",
     year: "2026",
-    summary: "A cross-platform personal AI assistant project.",
-    detail:
-      "A public product site and TypeScript codebase exploring personal agent workflows, setup, and assistant ergonomics.",
+    line: "Contributor work on a personal AI assistant.",
+    proof: ["Public repo", "Agent commands", "Product surface", "Typed app code"],
     stack: ["TypeScript", "React", "AI agents", "Product UI"],
     links: {
       repo: "https://github.com/l0cka/openclaw",
       live: "https://openclaw.ai",
     },
-    image: "/assets/openclaw.png",
     accent: "#8fd3ff",
-    signal: "personal AI tooling",
-    featured: true,
+    visual: "agent",
   },
   {
     name: "MatterOS",
     kind: "Legal tech",
     status: "Public",
     year: "2026",
-    summary: "Self-hosted legal ops command center.",
-    detail:
-      "An open-source Python project for contracts, requests, compliance deadlines, privilege-aware access, and auditable legal workflows.",
+    line: "A legal ops queue with contracts, requests, and deadlines.",
+    proof: ["Privilege-aware access", "Auditable logs", "Self-hosted", "Python package"],
     stack: ["Python", "FastAPI", "Legal ops", "CLI"],
     links: {
       repo: "https://github.com/l0cka/matteros",
     },
     accent: "#ffd166",
-    signal: "legal operations",
-    featured: true,
+    visual: "legalops",
   },
   {
     name: "Commodity",
     kind: "Product",
     status: "Public",
     year: "2026",
-    summary: "Australia/APAC oil and LNG tracker.",
-    detail:
-      "A market data product with a dual-mode map UI, charting, ingestion jobs, and Postgres-backed commodity intelligence.",
+    line: "Australia/APAC oil and LNG tracker.",
+    proof: ["Dual-mode map", "Market charts", "Vercel Cron", "Postgres data model"],
     stack: ["TypeScript", "Next.js", "Drizzle", "Postgres", "Charts"],
     links: {
       repo: "https://github.com/l0cka/commodity",
     },
     accent: "#d8b4fe",
-    signal: "market intelligence",
-    featured: true,
+    visual: "market",
   },
   {
     name: "GitLaw",
     kind: "Legal tech",
     status: "Public",
     year: "2026",
-    summary: "Git-native tooling for legal documents.",
-    detail:
-      "A TypeScript monorepo with document models, parsing, diffing, workflow utilities, CLI tooling, and a browsing UI.",
+    line: "Legal documents with diffs, schemas, and history.",
+    proof: ["Document model", "CLI", "Diff utilities", "Workspace packages"],
     stack: ["TypeScript", "Turbo", "CLI", "Next.js", "Document models"],
     links: {
       repo: "https://github.com/l0cka/gitlaw",
     },
     accent: "#6ee7b7",
-    signal: "versioned legal docs",
-    featured: true,
+    visual: "gitlaw",
   },
   {
     name: "Enrich Aged Care",
     kind: "Legal tech",
     status: "Live",
     year: "2026",
-    summary: "Public explorer for enriched aged-care legislation.",
-    detail:
-      "A Next.js research surface for ingesting, searching, and presenting aged-care legislative material.",
+    line: "Aged-care legislation made searchable and inspectable.",
+    proof: ["Ingestion pipeline", "Search UI", "Legislation explorer", "Unit and e2e tests"],
     stack: ["TypeScript", "Next.js", "Legislation", "Playwright", "Vitest"],
     links: {
       repo: "https://github.com/l0cka/enrich-aged-care",
       live: "https://enrich-aged-care.vercel.app",
     },
-    image: "/assets/enrich-aged-care.png",
     accent: "#fca5a5",
-    signal: "public law explorer",
-    featured: true,
+    visual: "legislation",
   },
   {
     name: "WhisperPad",
     kind: "Native",
     status: "Private",
     year: "2026",
-    summary: "Menu bar dictation app that turns speech into polished text.",
-    detail:
-      "A macOS utility focused on fast capture, transcript cleanup, and writing into the active app without breaking flow.",
+    line: "Speak once. Paste polished text anywhere.",
+    proof: ["Menu bar capture", "Transcript cleanup", "Global shortcut", "Native macOS"],
     stack: ["Swift", "macOS", "Speech", "Menu bar app"],
     links: {},
     accent: "#f0abfc",
-    signal: "native productivity",
-    featured: true,
+    visual: "dictation",
   },
   {
     name: "BlueThread",
     kind: "Open source",
     status: "Public",
     year: "2026",
-    summary: "Self-hosted bridge between iMessage group chats and Slack channels.",
-    detail:
-      "A local-first connector that runs on a Mac, reads approved local conversations, and relays mapped group chats into Slack.",
+    line: "iMessage group chat -> Slack channel.",
+    proof: ["Local-first bridge", "Mapped channels", "Self-hosted", "Open connector"],
     stack: ["macOS", "Slack", "Local-first", "Open source"],
     links: {
       repo: "https://github.com/tideflowau/blue-thread",
     },
     accent: "#93c5fd",
-    signal: "connector infrastructure",
-    featured: true,
+    visual: "bridge",
   },
   {
     name: "Slack News Bot",
     kind: "Automation",
     status: "Public",
     year: "2026",
-    summary: "Licensed market/news feed bot for compact Slack digests.",
-    detail:
-      "Fetches RSS or JSON feeds, normalizes stories, dedupes, ranks, and posts concise digests to a fixed Slack channel.",
+    line: "Feeds in. Ranked Slack digest out.",
+    proof: ["RSS/JSON adapters", "Deduping", "Story ranking", "Webhook delivery"],
     stack: ["TypeScript", "RSS", "Slack", "Postgres", "Vitest"],
     links: {
       repo: "https://github.com/tideflowau/slack-news-bot",
     },
     accent: "#c4b5fd",
-    signal: "news automation",
-    featured: true,
+    visual: "news",
   },
 ];
 
@@ -200,71 +187,71 @@ export const archiveProjects: Project[] = [
     kind: "Legal tech",
     status: "Live",
     year: "2026",
-    summary: "Australian legal AI assistant web application.",
-    detail: "A public legal assistant prototype with a Python-heavy backend surface.",
+    line: "Australian legal AI assistant.",
+    proof: ["Assistant UI", "Legal research", "Public demo"],
     stack: ["Python", "React", "Legal AI"],
     links: {
       repo: "https://github.com/l0cka/auslex",
       live: "https://auslex.vercel.app",
     },
     accent: "#facc15",
-    signal: "legal assistant",
+    visual: "archive",
   },
   {
     name: "Australian Law",
     kind: "Research",
     status: "Public",
     year: "2026",
-    summary: "Python repository for Australian law research work.",
-    detail: "Research code and legal data exploration.",
+    line: "Python legal research code.",
+    proof: ["Research scripts", "Legal data"],
     stack: ["Python", "Legal research"],
     links: {
       repo: "https://github.com/l0cka/australian-law",
     },
     accent: "#67e8f9",
-    signal: "research code",
+    visual: "archive",
   },
   {
     name: "Paralegal",
     kind: "Legal tech",
     status: "Public",
     year: "2026",
-    summary: "Agentic legal software concept.",
-    detail: "Early public repository exploring agent-driven legal workflows.",
+    line: "Agentic legal software sketch.",
+    proof: ["Agent workflows", "Legal AI"],
     stack: ["Legal AI", "Agents"],
     links: {
       repo: "https://github.com/l0cka/paralegal",
     },
     accent: "#fb7185",
-    signal: "agentic legal work",
+    visual: "archive",
   },
   {
     name: "sRGB Galahad II Trinity AIO Plugin",
     kind: "Open source",
     status: "Public",
     year: "2025",
-    summary: "JavaScript plugin project for hardware lighting control.",
-    detail: "Utility work around device control and desktop setup.",
+    line: "Hardware lighting control plugin.",
+    proof: ["Desktop utility", "Device control"],
     stack: ["JavaScript", "Hardware"],
     links: {
       repo: "https://github.com/l0cka/srgb-galahad-ii-trinity-aio-plugin",
     },
     accent: "#a7f3d0",
-    signal: "hardware utility",
+    visual: "archive",
   },
   {
     name: "SHGPR UCF Figures",
     kind: "Research",
     status: "Public",
     year: "2025",
-    summary: "Figure and visualisation repository.",
-    detail: "A public JavaScript repository for chart and figure work.",
+    line: "Figure and visualisation work.",
+    proof: ["Charts", "Research output"],
     stack: ["JavaScript", "Visualisation"],
     links: {
       repo: "https://github.com/l0cka/SHGPR_UCF_Figures",
     },
     accent: "#fdba74",
-    signal: "visual research",
+    visual: "archive",
   },
 ];
 
