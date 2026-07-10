@@ -1,0 +1,39 @@
+---
+import type { Project } from "../data/projects";
+
+type Props = {
+  project: Project;
+  index: number;
+};
+
+const { project, index } = Astro.props;
+const num = String(index + 1).padStart(2, "0");
+const titleHref = project.links.live ?? project.links.repo;
+---
+
+<article class="project-row">
+  <div class="project-num" aria-hidden="true">{num}</div>
+  <div class="project-body">
+    <h3>
+      {titleHref ? (
+        <a href={titleHref} target="_blank" rel="noreferrer">{project.name}</a>
+      ) : (
+        project.name
+      )}
+    </h3>
+    <p class="project-tagline">{project.tagline}</p>
+    <p class="project-demo">{project.description}</p>
+    <p class="project-stack">{project.stack.join(" · ")}</p>
+  </div>
+  <div class="project-aside">
+    <span class="project-status">{project.status}</span>
+    <div class="project-links">
+      {project.links.live && (
+        <a href={project.links.live} target="_blank" rel="noreferrer">Live &#8599;</a>
+      )}
+      {project.links.repo && (
+        <a href={project.links.repo} target="_blank" rel="noreferrer">Repository &#8599;</a>
+      )}
+    </div>
+  </div>
+</article>

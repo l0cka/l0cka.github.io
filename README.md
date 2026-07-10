@@ -1,6 +1,12 @@
-# l0cka portfolio
+# danielkurdi — portfolio
 
-Static portfolio for `https://l0cka.github.io`, built with Vite and React.
+Personal site for `https://l0cka.github.io`, built with Astro.
+
+## Structure
+
+- `src/data/projects.ts` — the work showcase
+- `src/pages/index.astro` — the single page
+- `src/styles/global.css` — design tokens and styling
 
 ## Local development
 
@@ -11,8 +17,8 @@ npm run dev
 
 ## Deploy
 
-Push this repository to `l0cka/l0cka.github.io` with GitHub Pages set to deploy from GitHub Actions.
+Pushing to `main` builds and deploys via GitHub Actions (`.github/workflows/pages.yml`).
 
 ```bash
-npm run build
+npm run build   # astro check + astro build → dist/
 ```

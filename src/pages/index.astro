@@ -1,0 +1,107 @@
+---
+import Base from "../layouts/Base.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import { featuredProjects, moreProjects } from "../data/projects";
+---
+
+<Base
+  title="Daniel Kurdi — Software Portfolio"
+  description="Products, tools and open-source projects by Daniel Kurdi."
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow rise">
+          <span class="mono">2026</span>
+          <span class="label">Products · tools · open source</span>
+        </div>
+        <h1 class="rise rise-2">Software, <em>shipped.</em></h1>
+        <p class="standfirst rise rise-3">
+          I'm Daniel Kurdi. I design and build software — production AI systems, data products
+          and native macOS utilities. Repositories are linked where public; private work is
+          described, not exposed.
+        </p>
+        <div class="hero-actions rise rise-4">
+          <a class="btn btn-primary" href="#work">Selected work</a>
+          <a class="btn" href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub profile</a>
+        </div>
+      </div>
+      <div class="cover-sheet rise rise-3" aria-label="At a glance">
+        <div class="cover-sheet-head">
+          <span class="label">Details</span>
+          <span class="mono">2026</span>
+        </div>
+        <dl>
+          <div class="cover-row">
+            <dt>Name</dt>
+            <span class="leader" aria-hidden="true"></span>
+            <dd>Daniel Kurdi</dd>
+          </div>
+          <div class="cover-row">
+            <dt>Focus</dt>
+            <span class="leader" aria-hidden="true"></span>
+            <dd>Products · tools · open source</dd>
+          </div>
+          <div class="cover-row">
+            <dt>Base</dt>
+            <span class="leader" aria-hidden="true"></span>
+            <dd>Australia</dd>
+          </div>
+          <div class="cover-row">
+            <dt>GitHub</dt>
+            <span class="leader" aria-hidden="true"></span>
+            <dd><a href="https://github.com/l0cka" target="_blank" rel="noreferrer">l0cka</a></dd>
+          </div>
+          <div class="cover-row">
+            <dt>Contact</dt>
+            <span class="leader" aria-hidden="true"></span>
+            <dd><a href="mailto:hello@l0cka.dev">hello@l0cka.dev</a></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="wrap">
+      <SectionHead
+        clause="01"
+        label="Selected work"
+        title="Built to be used."
+        intro="A few things I've shipped recently. Each is shown as it is: what it does, how it's made, where to find it."
+      />
+      <div class="project-list">
+        {featuredProjects.map((project, index) => (
+          <ProjectRow project={project} index={index} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SectionHead
+        clause="02"
+        label="Also built"
+        title="Smaller tools and public traces."
+        intro="Utilities, connectors, prototypes and research code."
+      />
+      <div class="minor-list">
+        {moreProjects.map((item) => (
+          <div class="minor-item">
+            <strong>
+              {item.href ? (
+                <a href={item.href} target="_blank" rel="noreferrer">{item.name}</a>
+              ) : (
+                item.name
+              )}
+            </strong>
+            <span class="leader" aria-hidden="true"></span>
+            <span class="line">{item.line}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>

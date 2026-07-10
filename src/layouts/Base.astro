@@ -1,0 +1,71 @@
+---
+import "@fontsource-variable/newsreader/opsz.css";
+import "@fontsource-variable/newsreader/opsz-italic.css";
+import "@fontsource-variable/public-sans/wght.css";
+import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description: string;
+  ogType?: "website" | "article";
+};
+
+const { title, description, ogType = "website" } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Daniel Kurdi" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <a class="wordmark" href="/">Daniel Kurdi</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#work">Work</a>
+          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <div class="ink-band">
+      <div class="wrap">
+        <div class="band-kicker">
+          <span class="mono">contact</span>
+        </div>
+        <h2>
+          Always building — <em>say hello.</em>
+        </h2>
+        <div class="band-links">
+          <a href="mailto:hello@l0cka.dev">Email</a>
+          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <footer class="fine-print">
+          <p>© 2026 Daniel Kurdi.</p>
+          <p>Set in Newsreader &amp; Public Sans. Built with Astro.</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

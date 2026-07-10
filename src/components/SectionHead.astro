@@ -1,0 +1,21 @@
+---
+type Props = {
+  clause: string;
+  label: string;
+  title: string;
+  intro?: string;
+  moreHref?: string;
+  moreLabel?: string;
+};
+
+const { clause, label, title, intro, moreHref, moreLabel } = Astro.props;
+---
+
+<div class="section-head">
+  <span class="clause">{clause}</span>
+  <span class="label">{label}</span>
+  <span class="rule-line" aria-hidden="true"></span>
+  {moreHref && <a class="more-link" href={moreHref}>{moreLabel ?? "View all"} &#8599;</a>}
+</div>
+<h2 class="section-title">{title}</h2>
+{intro && <p class="section-intro">{intro}</p>}
