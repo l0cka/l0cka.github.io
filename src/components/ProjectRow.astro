@@ -8,7 +8,7 @@ type Props = {
 
 const { project, index } = Astro.props;
 const num = String(index + 1).padStart(2, "0");
-const titleHref = project.links.live ?? project.links.repo;
+const titleHref = project.links[0]?.href;
 ---
 
 <article class="project-row">
@@ -28,12 +28,9 @@ const titleHref = project.links.live ?? project.links.repo;
   <div class="project-aside">
     <span class="project-status">{project.status}</span>
     <div class="project-links">
-      {project.links.live && (
-        <a href={project.links.live} target="_blank" rel="noreferrer">Live &#8599;</a>
-      )}
-      {project.links.repo && (
-        <a href={project.links.repo} target="_blank" rel="noreferrer">Repository &#8599;</a>
-      )}
+      {project.links.map((link) => (
+        <a href={link.href} target="_blank" rel="noreferrer">{link.label} &#8599;</a>
+      ))}
     </div>
   </div>
 </article>

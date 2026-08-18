@@ -1,6 +1,6 @@
-# danielkurdi — portfolio
+# Daniel Alkurdi — portfolio
 
-Personal site for `https://l0cka.github.io`, built with Astro.
+Personal portfolio for [https://l0cka.github.io](https://l0cka.github.io). It presents Daniel's public legal-technology, AI and open-source work. The site is built with Astro.
 
 ## Structure
 

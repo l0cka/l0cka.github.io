@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/verify-rendered.mjs",
     "preview": "astro preview --host 127.0.0.1",
-    "lint": "astro check"
+    "lint": "astro check",
+    "test": "node scripts/verify-content.mjs",
+    "verify:rendered": "node scripts/verify-rendered.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",

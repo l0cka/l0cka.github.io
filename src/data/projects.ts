@@ -1,91 +1,101 @@
+export type ProjectLink = {
+  label: string;
+  href: string;
+};
+
 export type Project = {
   name: string;
   tagline: string;
   description: string;
   stack: string[];
   year: string;
-  status: "Live" | "Public repo" | "Private build" | "Contributor";
-  links: {
-    repo?: string;
-    live?: string;
-  };
+  status: "Live" | "Open source" | "Released · archived" | "Early development" | "Upstream contributions";
+  links: ProjectLink[];
 };
 
 export type MinorProject = {
   name: string;
   line: string;
-  href?: string;
+  href: string;
 };
 
 export const featuredProjects: Project[] = [
   {
-    name: "Tideflow",
-    tagline: "An AI receptionist for trade businesses: missed call → qualified lead → booked job.",
+    name: "Policai",
+    tagline: "A public register of Australian AI policy and court guidance.",
     description:
-      "A production voice product: realtime speech in and out, tool-call contracts so the model requests actions rather than acting, an auditable call ledger, and a booking flow at the end of it.",
-    stack: ["TypeScript", "Next.js", "Supabase", "OpenAI Realtime"],
+      "A searchable, provenance-led register covering federal, state and territory developments. A daily collector finds changes from official sources; editorial review controls what enters the register.",
+    stack: ["Next.js", "TypeScript", "React", "D3", "Claude"],
     year: "2026",
-    status: "Private build",
-    links: {
-      live: "https://www.tideflow.au/",
-    },
+    status: "Live",
+    links: [
+      { label: "Live site", href: "https://policai.org/" },
+      { label: "Source", href: "https://github.com/l0cka/policai" },
+    ],
   },
   {
-    name: "Commodity",
-    tagline: "Australia / APAC oil and LNG market tracker.",
+    name: "Legal Skills",
+    tagline: "Open-source legal workflows for AI agents.",
     description:
-      "A dual-mode market map with charts over a Postgres data model, refreshed on a schedule. Built to make a fast-moving regional market readable at a glance.",
-    stack: ["TypeScript", "Next.js", "Drizzle", "Postgres"],
+      "A portable marketplace of Australian legal-workflow plugins for Claude Cowork and ChatGPT Work. The skills state their jurisdiction, sources, assumptions and human-review boundaries.",
+    stack: ["Python", "Claude", "Codex", "Legal research"],
     year: "2026",
-    status: "Public repo",
-    links: {
-      repo: "https://github.com/l0cka/commodity",
-    },
+    status: "Open source",
+    links: [{ label: "Source", href: "https://github.com/l0cka/legal-skills" }],
   },
   {
-    name: "OpenClaw",
-    tagline: "Contributor to an open-source personal AI assistant.",
+    name: "CaseLaw Guard",
+    tagline: "Fail-closed case-law citation verification for drafting workflows.",
     description:
-      "Contributions across product surfaces and agent commands in a public TypeScript codebase — typed app code on top of an agent runtime.",
-    stack: ["TypeScript", "React", "AI agents"],
+      "A Python package and MCP server that extracts case citations and verifies their existence through configured sources. Its guarantee is deliberately narrow: citation existence, not proposition support or good-law status.",
+    stack: ["Python", "MCP", "PyPI", "Australian case law"],
     year: "2026",
-    status: "Contributor",
-    links: {
-      repo: "https://github.com/l0cka/openclaw",
-      live: "https://openclaw.ai",
-    },
+    status: "Released · archived",
+    links: [
+      { label: "Package", href: "https://pypi.org/project/caselaw-guard/" },
+      { label: "Source", href: "https://github.com/l0cka/caselaw-guard" },
+    ],
   },
   {
-    name: "WhisperPad",
-    tagline: "macOS menu-bar dictation — speak once, paste polished text anywhere.",
+    name: "Kitroom",
+    tagline: "A native macOS control centre for coding-agent extensions.",
     description:
-      "A native Swift utility: global shortcut, speech capture, transcript cleanup, straight to the clipboard. Small, fast, and used every day.",
-    stack: ["Swift", "macOS", "Speech"],
+      "An open-source Swift app for inspecting and managing skills, plugins and MCP servers across local and SSH-connected hosts. Changes use explicit plans, backups and post-change verification.",
+    stack: ["Swift 6", "SwiftUI", "macOS", "OpenSSH"],
     year: "2026",
-    status: "Private build",
-    links: {},
+    status: "Early development",
+    links: [{ label: "Source", href: "https://github.com/l0cka/kitroom" }],
+  },
+  {
+    name: "Harvey LAB",
+    tagline: "Public contributions to an open legal-agent benchmark.",
+    description:
+      "Four upstream pull requests propose corrections to task evidence and stronger validation of shared document paths in Harvey's Legal Agent Benchmark. The contributions remain under upstream review.",
+    stack: ["Legal AI", "Agent evaluation", "Python", "Benchmark design"],
+    year: "2026",
+    status: "Upstream contributions",
+    links: [
+      {
+        label: "Pull requests",
+        href: "https://github.com/harveyai/harvey-labs/pulls?q=is%3Apr+author%3Al0cka",
+      },
+      {
+        label: "Project",
+        href: "https://github.com/harveyai/harvey-labs",
+      },
+    ],
   },
 ];
 
 export const moreProjects: MinorProject[] = [
   {
-    name: "BlueThread",
-    line: "Local-first bridge from iMessage groups to Slack.",
-    href: "https://github.com/tideflowau/blue-thread",
-  },
-  {
-    name: "Slack News Bot",
-    line: "Ranked, de-duplicated news digests delivered to Slack.",
-    href: "https://github.com/tideflowau/slack-news-bot",
-  },
-  {
-    name: "sRGB Galahad II plugin",
-    line: "Hardware lighting control plugin.",
-    href: "https://github.com/l0cka/srgb-galahad-ii-trinity-aio-plugin",
+    name: "Commodity",
+    line: "Public-source Australia and APAC oil and LNG market tracker.",
+    href: "https://github.com/l0cka/commodity",
   },
   {
     name: "SHGPR UCF Figures",
-    line: "Research figures and visualisation.",
-    href: "https://github.com/l0cka/SHGPR_UCF_Figures",
+    line: "Interactive risk-to-control relationship visualisation.",
+    href: "https://l0cka.github.io/SHGPR_UCF_Figures/",
   },
 ];
