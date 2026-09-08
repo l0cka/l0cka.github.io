@@ -7,11 +7,14 @@ assert.equal((html.match(/<h1\b/g) || []).length, 1, "Rendered page must have on
 assert.match(html, /<main id="main">/);
 assert.match(html, /href="#main"[^>]*>Skip to content</);
 assert.match(html, /Daniel Alkurdi/);
-assert.match(html, /Not legal advice/);
-assert.match(html, /No client or firm material/);
-assert.match(html, /Released · archived/);
-assert.match(html, /remain under upstream review/);
-assert.match(html, /citation existence, not proposition support or good-law status/);
+for (const removed of [
+  "Kitroom", "CaseLaw Guard", "Harvey LAB", "Research &amp; prototypes",
+  "SHGPR UCF Figures", "Commodity", "Personal work and views",
+  "Not legal advice", "No client or firm material",
+]) {
+  assert.ok(!html.includes(removed), `Hidden content must not render: ${removed}`);
+}
+assert.equal((html.match(/class="project-row"/g) || []).length, 2);
 
 const externalBlankLinks = [...html.matchAll(/<a\b([^>]*target="_blank"[^>]*)>/g)];
 assert.ok(externalBlankLinks.length > 0, "Expected external links");
@@ -22,9 +25,6 @@ for (const [, attrs] of externalBlankLinks) {
 for (const href of [
   "https://policai.org/",
   "https://github.com/l0cka/legal-skills",
-  "https://pypi.org/project/caselaw-guard/",
-  "https://github.com/l0cka/kitroom",
-  "https://github.com/harveyai/harvey-labs/pulls?q=is%3Apr+author%3Al0cka",
 ]) {
   assert.ok(html.includes(href.replaceAll("&", "&amp;")), `Missing rendered link: ${href}`);
 }

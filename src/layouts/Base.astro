@@ -1,21 +1,13 @@
 ---
-import "@fontsource-variable/newsreader/opsz.css";
-import "@fontsource-variable/newsreader/opsz-italic.css";
-import "@fontsource-variable/public-sans/wght.css";
+import "@fontsource-variable/jetbrains-mono";
+import "@fontsource-variable/pixelify-sans";
 import "../styles/global.css";
-
-type Props = {
-  title: string;
-  description: string;
-  ogType?: "website" | "article";
-};
-
+type Props = { title: string; description: string; ogType?: "website" | "article" };
 const { title, description, ogType = "website" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
-
 <!doctype html>
-<html lang="en">
+<html lang="en-AU" data-theme="everforest">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,44 +23,52 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:site_name" content="Daniel Alkurdi" />
     <meta name="twitter:card" content="summary" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      try {
+        const theme = localStorage.getItem("portfolio-theme");
+        if (["everforest", "nord", "paper"].includes(theme)) document.documentElement.dataset.theme = theme;
+      } catch { /* Default theme works without storage. */ }
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="site-header">
-      <div class="wrap">
-        <a class="wordmark" href="/">Daniel Alkurdi</a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="/#work">Work</a>
-          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub</a>
-        </nav>
+    <header class="site-header wrap">
+      <a class="wordmark" href="/" aria-label="Daniel Alkurdi home"><span>l0cka</span><span class="wordmark-divider" aria-hidden="true"> / </span><span class="wordmark-name">Daniel Alkurdi</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#work">Work</a>
+        <a href="/#about">About</a>
+        <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+      <div class="theme-control" hidden>
+        <label class="sr-only" for="theme">Colour theme</label>
+        <select id="theme">
+          <option value="everforest">Everforest</option>
+          <option value="nord">Nord</option>
+          <option value="paper">Paper</option>
+        </select>
       </div>
     </header>
-
-    <main id="main">
-      <slot />
-    </main>
-
-    <div class="ink-band">
-      <div class="wrap">
-        <div class="band-kicker">
-          <span class="mono">public work</span>
+    <main id="main"><slot /></main>
+    <footer class="site-footer wrap">
+      <div class="footer-top">
+        <p>© {new Date().getFullYear()} Daniel Alkurdi</p>
+        <div class="footer-links">
+          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          <a href="https://www.linkedin.com/in/danielalkurdi/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
         </div>
-        <h2>
-          See the <em>work.</em>
-        </h2>
-        <p class="band-copy">
-          Browse the source, releases, live services and public contribution records.
-        </p>
-        <div class="band-links">
-          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="https://policai.org/" target="_blank" rel="noreferrer">Policai</a>
-        </div>
-        <footer class="fine-print">
-          <p>© 2026 Daniel Alkurdi. Personal work and views.</p>
-          <p>Not legal advice. No client or firm material.</p>
-        </footer>
       </div>
-    </div>
+    </footer>
+    <script>
+      const themeControl = document.querySelector<HTMLElement>(".theme-control");
+      const select = document.querySelector<HTMLSelectElement>("#theme");
+      if (themeControl && select) {
+        select.value = document.documentElement.dataset.theme ?? "everforest";
+        themeControl.hidden = false;
+        select.addEventListener("change", () => {
+          document.documentElement.dataset.theme = select.value;
+          try { localStorage.setItem("portfolio-theme", select.value); } catch { /* Theme still applies for this page. */ }
+        });
+      }
+    </script>
   </body>
 </html>

@@ -6,14 +6,14 @@ const layout = readFileSync(new URL("../src/layouts/Base.astro", import.meta.url
 const projects = readFileSync(new URL("../src/data/projects.ts", import.meta.url), "utf8");
 const publicCopy = `${index}\n${layout}\n${projects}`;
 
-// Identity and professional boundary.
+// Identity and current role.
 assert.match(publicCopy, /Daniel Alkurdi/);
 assert.match(publicCopy, /technology lawyer/i);
-assert.match(publicCopy, /Personal work and views/);
-assert.match(publicCopy, /Not legal advice/);
-assert.match(publicCopy, /No client or firm material/);
+assert.match(index, /Lawyer - Technology and Innovation/);
+assert.match(index, /Pro Bono \+ CSR team at Gilbert \+ Tobin/);
+assert.match(projects, /Eleven plugins and sixty-one skills/);
 
-// Current public work and its important assurance boundaries.
+// Project copy is retained even when a project is hidden from the page.
 for (const project of ["Policai", "Legal Skills", "CaseLaw Guard", "Kitroom", "Harvey LAB"]) {
   assert.match(publicCopy, new RegExp(project));
 }
