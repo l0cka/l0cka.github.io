@@ -175,6 +175,6 @@ The fixed two-project sequence stays. Cards, filters, and project routes would a
 
 The design retains hidden records and unused research records because the source contract requires them. Rendered-output checks enforce their public absence.
 
-Implementation is complete in the working tree. The content and rendered contracts pass, the build has zero Astro diagnostics, and all 16 production-browser scenarios pass. The keyboard scenarios tab to every project action and check its visible focus. All 11 final screenshots passed visual review. No commit, push, pull request, or deployment has occurred.
+Implementation is complete. The content and rendered contracts pass, the build has zero Astro diagnostics, and all 16 production-browser scenarios pass against the deployed site. The keyboard scenarios tab to every project action and check its visible focus. All 11 final screenshots passed visual review. The implementation commit and GitHub Pages deployment are recorded in the repository and workflow history.
 
 The final trail review accepted the implementation evidence. It identified the missing project-action keyboard check and the incorrect model-family claims. The browser check now covers project actions, and this document records the resolved runtime. A cross-model-family trail review remains unavailable because model requests resolve to the same Kimi runtime.
