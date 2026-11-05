@@ -1,18 +1,18 @@
-export type ProjectLink = {
+export type ProjectLink = Readonly<{
   label: string;
   href: string;
-};
+}>;
 
-export type Project = {
+export type Project = Readonly<{
   name: string;
   tagline: string;
   description: string;
-  stack: string[];
+  stack: readonly [string, ...string[]];
   year: string;
   status: "Live" | "Open source" | "Released · archived" | "Early development" | "Upstream contributions";
-  links: ProjectLink[];
-  hidden?: boolean;
-};
+  links: readonly [ProjectLink, ...ProjectLink[]];
+  hidden?: true;
+}>;
 
 export type MinorProject = {
   name: string;
@@ -23,26 +23,26 @@ export type MinorProject = {
 const projects: Project[] = [
   {
     name: "Policai",
-    tagline: "A public register of Australian AI policy and court guidance.",
+    tagline: "Australian AI policy and court guidance, with official sources.",
     description:
-      "Official sources, searchable records and editorial review. Tracks federal, state and territory developments with daily source checks.",
+      "A curated public register covering federal, state and territory AI policy, regulation, court guidance and developments. Every record links to an official source.",
     stack: ["Next.js", "TypeScript", "React", "D3", "Claude"],
     year: "2026",
     status: "Live",
     links: [
-      { label: "Visit site", href: "https://policai.org/" },
-      { label: "Source", href: "https://github.com/l0cka/policai" },
+      { label: "Visit the register", href: "https://policai.org/" },
+      { label: "View source", href: "https://github.com/l0cka/policai" },
     ],
   },
   {
     name: "Legal Skills",
     tagline: "Legal workflows for Claude Cowork and ChatGPT Work.",
     description:
-      "Eleven plugins and sixty-one skills for Australian legal work, including research, governance and legal triage. Each workflow states its sources and where human review is required.",
-    stack: ["Python", "Claude", "Codex", "Legal research"],
+      "One legal-skills plugin with 103 skills across 16 practice areas for Australian legal work. Each workflow states its sources and where human review is required.",
+    stack: ["Python", "Claude Cowork", "ChatGPT Work", "Legal research"],
     year: "2026",
     status: "Open source",
-    links: [{ label: "Source", href: "https://github.com/l0cka/legal-skills" }],
+    links: [{ label: "View on GitHub", href: "https://github.com/l0cka/legal-skills" }],
   },
   {
     name: "Kitroom",

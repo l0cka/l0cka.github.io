@@ -1,10 +1,18 @@
 ---
 import "@fontsource-variable/jetbrains-mono";
-import "@fontsource-variable/pixelify-sans";
+import "@fontsource-variable/newsreader";
 import "../styles/global.css";
+
 type Props = { title: string; description: string; ogType?: "website" | "article" };
+
 const { title, description, ogType = "website" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const themes = [
+  { value: "everforest", label: "Everforest" },
+  { value: "nord", label: "Nord" },
+  { value: "paper", label: "Paper" },
+] as const;
+const themeValues = themes.map((theme) => theme.value);
 ---
 <!doctype html>
 <html lang="en-AU" data-theme="everforest">
@@ -23,11 +31,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:site_name" content="Daniel Alkurdi" />
     <meta name="twitter:card" content="summary" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>
+    <script is:inline define:vars={{ themeValues }}>
       try {
-        const theme = localStorage.getItem("portfolio-theme");
-        if (["everforest", "nord", "paper"].includes(theme)) document.documentElement.dataset.theme = theme;
-      } catch { /* Default theme works without storage. */ }
+        const storedTheme = localStorage.getItem("portfolio-theme");
+        if (themeValues.includes(storedTheme)) document.documentElement.dataset.theme = storedTheme;
+      } catch {}
     </script>
   </head>
   <body>
@@ -37,14 +45,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <nav class="site-nav" aria-label="Primary">
         <a href="/#work">Work</a>
         <a href="/#about">About</a>
-        <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
       </nav>
       <div class="theme-control" hidden>
         <label class="sr-only" for="theme">Colour theme</label>
         <select id="theme">
-          <option value="everforest">Everforest</option>
-          <option value="nord">Nord</option>
-          <option value="paper">Paper</option>
+          {themes.map((theme) => <option value={theme.value}>{theme.label}</option>)}
         </select>
       </div>
     </header>
@@ -53,8 +59,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <div class="footer-top">
         <p>© {new Date().getFullYear()} Daniel Alkurdi</p>
         <div class="footer-links">
-          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-          <a href="https://www.linkedin.com/in/danielalkurdi/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          <a href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
+          <a href="https://www.linkedin.com/in/danielalkurdi/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
         </div>
       </div>
     </footer>
@@ -66,7 +72,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
         themeControl.hidden = false;
         select.addEventListener("change", () => {
           document.documentElement.dataset.theme = select.value;
-          try { localStorage.setItem("portfolio-theme", select.value); } catch { /* Theme still applies for this page. */ }
+          try {
+            localStorage.setItem("portfolio-theme", select.value);
+          } catch {}
         });
       }
     </script>

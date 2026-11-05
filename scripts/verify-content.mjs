@@ -6,14 +6,20 @@ const layout = readFileSync(new URL("../src/layouts/Base.astro", import.meta.url
 const projects = readFileSync(new URL("../src/data/projects.ts", import.meta.url), "utf8");
 const publicCopy = `${index}\n${layout}\n${projects}`;
 
-// Identity and current role.
 assert.match(publicCopy, /Daniel Alkurdi/);
 assert.match(publicCopy, /technology lawyer/i);
+assert.match(index, /Technology lawyer working in pro bono\. I build open-source tools for legal work and public AI policy\./);
+assert.match(index, /Current role/);
 assert.match(index, /Lawyer - Technology and Innovation/);
 assert.match(index, /Pro Bono \+ CSR team at Gilbert \+ Tobin/);
-assert.match(projects, /Eleven plugins and sixty-one skills/);
+assert.ok(index.indexOf("Current role") < index.indexOf('id="work"'), "Current role must appear before selected work");
+assert.match(projects, /One legal-skills plugin with 103 skills across 16 practice areas/);
+assert.match(projects, /Claude Cowork/);
+assert.match(projects, /ChatGPT Work/);
+assert.match(projects, /Every record links to an official source\./);
+assert.match(projects, /where human review is required/);
+assert.doesNotMatch(projects, /Eleven plugins|sixty-one skills/i);
 
-// Project copy is retained even when a project is hidden from the page.
 for (const project of ["Policai", "Legal Skills", "CaseLaw Guard", "Kitroom", "Harvey LAB"]) {
   assert.match(publicCopy, new RegExp(project));
 }

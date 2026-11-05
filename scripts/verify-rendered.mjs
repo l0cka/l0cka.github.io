@@ -7,23 +7,50 @@ assert.equal((html.match(/<h1\b/g) || []).length, 1, "Rendered page must have on
 assert.match(html, /<main id="main">/);
 assert.match(html, /href="#main"[^>]*>Skip to content</);
 assert.match(html, /Daniel Alkurdi/);
+assert.match(html, /Current role/);
+assert.match(html, /Technology lawyer working in pro bono\. I build open-source tools for legal work and public AI policy\./);
+assert.match(html, /One legal-skills plugin with 103 skills across 16 practice areas/);
+assert.match(html, /Claude Cowork/);
+assert.match(html, /ChatGPT Work/);
+assert.match(html, /Every record links to an official source\./);
+assert.match(html, /where human review is required/);
+
+const projectRows = html.match(/<article\b[^>]*class="project-row"[^>]*>[\s\S]*?<\/article>/g) || [];
+assert.equal(projectRows.length, 2, "Rendered page must have exactly two project articles");
+for (const article of projectRows) {
+  assert.match(article, /aria-labelledby="[^"]+"/, "Each project article needs an accessible label");
+  assert.doesNotMatch(article, />2026</, "Project year must not render");
+}
+
 for (const removed of [
-  "Kitroom", "CaseLaw Guard", "Harvey LAB", "Research &amp; prototypes",
-  "SHGPR UCF Figures", "Commodity", "Personal work and views",
-  "Not legal advice", "No client or firm material",
+  "Kitroom",
+  "CaseLaw Guard",
+  "Harvey LAB",
+  "Research &amp; prototypes",
+  "SHGPR UCF Figures",
+  "Commodity",
+  "Personal work and views",
+  "Not legal advice",
+  "No client or firm material",
+  "https://github.com/l0cka/kitroom",
+  "https://github.com/l0cka/caselaw-guard",
+  "https://github.com/harveyai/harvey-labs",
+  "https://github.com/l0cka/commodity",
+  "https://l0cka.github.io/SHGPR_UCF_Figures/",
 ]) {
   assert.ok(!html.includes(removed), `Hidden content must not render: ${removed}`);
 }
-assert.equal((html.match(/class="project-row"/g) || []).length, 2);
 
-const externalBlankLinks = [...html.matchAll(/<a\b([^>]*target="_blank"[^>]*)>/g)];
+const externalBlankLinks = [...html.matchAll(/<a\b([^>]*target="_blank"[^>]*)>([\s\S]*?)<\/a>/g)];
 assert.ok(externalBlankLinks.length > 0, "Expected external links");
-for (const [, attrs] of externalBlankLinks) {
+for (const [, attrs, content] of externalBlankLinks) {
   assert.match(attrs, /rel="[^"]*noreferrer[^"]*"/, "Every target=_blank link must use noreferrer");
+  assert.match(content, /class="sr-only">opens in new tab</, "Every new-tab link needs an accessibility notice");
 }
 
 for (const href of [
   "https://policai.org/",
+  "https://github.com/l0cka/policai",
   "https://github.com/l0cka/legal-skills",
 ]) {
   assert.ok(html.includes(href.replaceAll("&", "&amp;")), `Missing rendered link: ${href}`);

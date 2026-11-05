@@ -5,20 +5,29 @@ import ProjectRow from "../components/ProjectRow.astro";
 import { featuredProjects } from "../data/projects";
 ---
 <Base
-  title="Daniel Alkurdi - Technology lawyer and software builder"
-  description="Daniel Alkurdi is a technology lawyer in Sydney, working on access to justice and building open-source legal tools. Explore his personal software projects."
+  title="Daniel Alkurdi | Technology lawyer and software builder"
+  description="Daniel Alkurdi is a technology lawyer in Sydney. Explore Policai and Legal Skills, his personal projects for public AI policy and legal work."
 >
   <section class="hero wrap" aria-labelledby="intro-title">
-    <h1 id="intro-title">Daniel Alkurdi</h1>
-    <p class="hero-subtitle">Technology lawyer. Software builder.</p>
-    <p class="standfirst">I’m a technology lawyer in Sydney, building open-source legal tools and software that makes AI systems easier to inspect and control.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#work">Explore my work <span aria-hidden="true">↓</span></a>
-      <a class="text-link" href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    <p class="eyebrow">Sydney, Australia</p>
+    <div class="hero-grid">
+      <div class="hero-statement">
+        <h1 id="intro-title">Daniel Alkurdi</h1>
+        <p class="standfirst">Technology lawyer working in pro bono. I build open-source tools for legal work and public AI policy.</p>
+      </div>
+      <div class="role-note">
+        <p class="role-label">Current role</p>
+        <p class="role-title">Lawyer - Technology and Innovation</p>
+        <p class="role-team">Pro Bono + CSR team at Gilbert + Tobin</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+        <a class="text-link" href="https://github.com/l0cka" target="_blank" rel="noreferrer">GitHub profile <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
+      </div>
     </div>
   </section>
   <section class="section wrap" id="work" aria-labelledby="work-title">
-    <SectionHead clause="01" title="Selected work" id="work-title" intro="Public projects & contributions" />
+    <SectionHead clause="01" title="Selected work" id="work-title" intro="Personal open-source projects" />
     <div class="project-list">
       {featuredProjects.map((project, index) => <ProjectRow project={project} index={index} />)}
     </div>
@@ -29,8 +38,8 @@ import { featuredProjects } from "../data/projects";
       <h3>Law, technology and access to justice.</h3>
       <div class="about-copy">
         <p>I work as a Lawyer - Technology and Innovation in the Pro Bono + CSR team at Gilbert + Tobin in Sydney.</p>
-        <p>My personal projects focus on practical legal workflows and making the behaviour of AI tools easier to check.</p>
-        <a class="text-link" href="https://www.linkedin.com/in/danielalkurdi/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        <p>Policai and Legal Skills are personal projects, separate from that role. They focus on public sources, practical legal workflows and human review.</p>
+        <a class="text-link" href="https://www.linkedin.com/in/danielalkurdi/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
       </div>
     </div>
   </section>

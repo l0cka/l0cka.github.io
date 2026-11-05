@@ -8,28 +8,22 @@ type Props = {
 
 const { project, index } = Astro.props;
 const num = String(index + 1).padStart(2, "0");
-const titleHref = project.links[0]?.href;
+const titleId = `project-${index + 1}-title`;
 ---
 
-<article class="project-row">
+<article class="project-row" aria-labelledby={titleId}>
   <div class="project-num" aria-hidden="true">{num}</div>
   <div class="project-body">
-    <h3>
-      {titleHref ? (
-        <a href={titleHref} target="_blank" rel="noreferrer">{project.name}</a>
-      ) : (
-        project.name
-      )}
-    </h3>
+    <h3 id={titleId}>{project.name}</h3>
     <p class="project-tagline">{project.tagline}</p>
-    <p class="project-demo">{project.description}</p>
-    <p class="project-stack">{project.stack.join(" · ")}</p>
+    <p class="project-description">{project.description}</p>
   </div>
   <div class="project-aside">
     <span class="project-status">{project.status}</span>
+    <p class="project-stack">{project.stack.join(" · ")}</p>
     <div class="project-links">
       {project.links.map((link) => (
-        <a href={link.href} target="_blank" rel="noreferrer">{link.label} &#8599;</a>
+        <a href={link.href} target="_blank" rel="noreferrer">{link.label} <span aria-hidden="true">↗</span><span class="sr-only">opens in new tab</span></a>
       ))}
     </div>
   </div>
