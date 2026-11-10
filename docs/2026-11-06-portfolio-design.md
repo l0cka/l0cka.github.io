@@ -93,7 +93,7 @@ Policai keeps `Live`, its existing stack, and both existing URLs. Use this copy:
 Legal Skills keeps `Open source`, `2026` in source only, and its existing source URL. Use this copy:
 
 - Tagline: `Legal workflows for Claude Cowork and ChatGPT Work.`
-- Description: `One legal-skills plugin with 103 skills across 16 practice areas for Australian legal work. Each workflow states its sources and where human review is required.`
+- Description: `One legal-skills plugin with 109 skills across 17 practice areas for Australian legal work. Each workflow states its sources and where human review is required.`
 - Stack: `Python`, `Claude Cowork`, `ChatGPT Work`, `Legal research`
 - Link label: `View on GitHub`
 
@@ -136,7 +136,7 @@ Sequence the implementation in these units:
 3. Replace the font dependency and implement the visual and responsive design. Run `npm test` and `npm run build`.
 4. Verify the built site through `npm run preview` on loopback, not only the development server. Run the reusable Playwright checks and inspect the screenshots.
 
-The source contract requires the exact current role, one `legal-skills` plugin, 103 skills, 16 practice areas, Claude Cowork, ChatGPT Work, official Policai sources, and human review. It rejects the old eleven-plugin and sixty-one-skill wording. It retains every hidden-record and stale-name assertion.
+The source contract requires the exact current role, one `legal-skills` plugin, 109 skills, 17 practice areas, Claude Cowork, ChatGPT Work, official Policai sources, and human review. It rejects the old eleven-plugin and sixty-one-skill wording. It retains every hidden-record and stale-name assertion.
 
 The rendered contract requires one `h1`, `main#main`, the skip link, exactly two `.project-row` articles, the current role, the updated Legal Skills facts, and both public project URLs. Every new-tab link uses `noreferrer`. Hidden project names and URLs, Commodity, SHGPR UCF Figures, and their URLs do not appear anywhere in `dist/index.html`.
 

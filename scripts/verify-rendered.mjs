@@ -2,14 +2,19 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const html = readFileSync(new URL("../dist/index.html", import.meta.url), "utf8");
+const notFound = readFileSync(new URL("../dist/404.html", import.meta.url), "utf8");
+assert.match(notFound, /<h1>Page not found\.<\/h1>/, "404 page must render its heading");
+assert.match(notFound, /<main id="main">/, "404 page must render main");
+assert.match(notFound, /<meta name="robots" content="noindex"/, "404 page must be noindex");
 
 assert.equal((html.match(/<h1\b/g) || []).length, 1, "Rendered page must have one h1");
 assert.match(html, /<main id="main">/);
+assert.match(html, /<select id="theme" data-themes="everforest nord paper"/, "Theme select must carry the theme registry");
 assert.match(html, /href="#main"[^>]*>Skip to content</);
 assert.match(html, /Daniel Alkurdi/);
 assert.match(html, /Current role/);
 assert.match(html, /Technology lawyer working in pro bono\. I build open-source tools for legal work and public AI policy\./);
-assert.match(html, /One legal-skills plugin with 103 skills across 16 practice areas/);
+assert.match(html, /One legal-skills plugin with 109 skills across 17 practice areas/);
 assert.match(html, /Claude Cowork/);
 assert.match(html, /ChatGPT Work/);
 assert.match(html, /Every record links to an official source\./);
@@ -34,6 +39,7 @@ for (const removed of [
   "No client or firm material",
   "https://github.com/l0cka/kitroom",
   "https://github.com/l0cka/caselaw-guard",
+  "https://pypi.org/project/caselaw-guard/",
   "https://github.com/harveyai/harvey-labs",
   "https://github.com/l0cka/commodity",
   "https://l0cka.github.io/SHGPR_UCF_Figures/",

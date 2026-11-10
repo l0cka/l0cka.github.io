@@ -12,7 +12,6 @@
     "verify:rendered": "node scripts/verify-rendered.mjs"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
     "@fontsource-variable/newsreader": "^5.3.0",
