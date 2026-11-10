@@ -3,9 +3,9 @@ import "@fontsource-variable/jetbrains-mono";
 import "@fontsource-variable/newsreader";
 import "../styles/global.css";
 
-type Props = { title: string; description: string; ogType?: "website" | "article" };
+type Props = { title: string; description: string; ogType?: "website" | "article"; noindex?: boolean };
 
-const { title, description, ogType = "website" } = Astro.props;
+const { title, description, ogType = "website", noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const themes = [
   { value: "everforest", label: "Everforest" },
@@ -21,6 +21,7 @@ const themeValues = themes.map((theme) => theme.value);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -49,7 +50,7 @@ const themeValues = themes.map((theme) => theme.value);
       </nav>
       <div class="theme-control" hidden>
         <label class="sr-only" for="theme">Colour theme</label>
-        <select id="theme">
+        <select id="theme" data-themes={themeValues.join(" ")}>
           {themes.map((theme) => <option value={theme.value}>{theme.label}</option>)}
         </select>
       </div>
@@ -71,6 +72,7 @@ const themeValues = themes.map((theme) => theme.value);
         select.value = document.documentElement.dataset.theme ?? "everforest";
         themeControl.hidden = false;
         select.addEventListener("change", () => {
+          if (!(select.dataset.themes ?? "").split(" ").includes(select.value)) return;
           document.documentElement.dataset.theme = select.value;
           try {
             localStorage.setItem("portfolio-theme", select.value);

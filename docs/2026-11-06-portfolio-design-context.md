@@ -14,17 +14,17 @@ The current site already communicates the basic role and two public projects. Th
 
 Themes are CSS variable sets on `data-theme`. The allowed values are `everforest`, `nord`, and `paper`. Everforest is the default, and Paper switches `color-scheme` to light. An inline head script reads `localStorage["portfolio-theme"]` before painting. A later script reveals the hidden select and saves changes. Storage failures leave the current theme working.
 
-`index.astro` imports `featuredProjects` and maps each record to `src/components/ProjectRow.astro`. That component derives the visible number from array position, uses the first link as the title link, joins stack entries with `·`, and renders status and links. The typed `year` field is not rendered. `src/components/SectionHead.astro` supplies numbered section headings. Hero and About copy remain directly in `index.astro`.
+`index.astro` imports `featuredProjects` and maps each record to `src/components/ProjectRow.astro`. That component derives the visible number from array position, renders the title as plain text in an `h3` with separate destination links, joins stack entries with `·`, and renders status and links. The typed `year` field is not rendered. `src/components/SectionHead.astro` supplies numbered section headings. Hero and About copy remain directly in `index.astro`.
 
 `Base.astro` receives `title`, `description`, and optional `ogType`. It generates canonical and Open Graph URLs from `Astro.site`, which `astro.config.mjs` sets to `https://l0cka.github.io`. The config also enables the sitemap integration. `src/pages/404.astro` reuses the same shell.
 
 ## Verification contracts
 
-`npm test` runs `scripts/verify-content.mjs`, which checks source text. `npm run build` runs Astro type checking, the static build, and `scripts/verify-rendered.mjs`, which checks built HTML. CI runs these checks before deploying `dist` through GitHub Pages.
+`npm test` runs `scripts/verify-content.mjs`, which checks source text. `npm run build` runs Astro type checking, the static build, and `scripts/verify-rendered.mjs`, which checks built HTML. CI runs these checks on every pull request and before deploying `dist` through GitHub Pages.
 
-The content test requires exact identity, role, project, and status phrases. It also forbids stale names and claims. The rendered test requires exactly two `.project-row` elements, one `h1`, `main#main`, a working skip link, the Policai and Legal Skills URLs, and `noreferrer` on every `target="_blank"` link. Hidden projects and unused research links must not appear in rendered HTML.
+The content test requires exact identity, role, project, and status phrases. It also forbids stale names and claims. The rendered test also requires `dist/404.html` to render its `h1` and `main#main` with `noindex`. It requires exactly two `.project-row` elements, one `h1`, `main#main`, a working skip link, the Policai and Legal Skills URLs, and `noreferrer` on every `target="_blank"` link. Hidden projects and unused research links must not appear in rendered HTML.
 
-The implementation must also pass desktop and mobile browser inspection, all three theme checks, keyboard and theme-control interaction, browser console checks, and failed-request checks. The 404 page shares the shell and must remain usable. Playwright 1.65.0 and Chromium are installed on the host. A temporary server must run as a loopback-only `systemd-run --user --unit=sandbox-portfolio ...` service and be stopped afterward.
+Browser verification is manual and not part of CI. The implementation must also pass desktop and mobile browser inspection, all three theme checks, keyboard and theme-control interaction, browser console checks, and failed-request checks. The 404 page shares the shell and must remain usable. Playwright 1.65.0 and Chromium are installed on the host. A temporary server must run as a loopback-only `systemd-run --user --unit=sandbox-portfolio ...` service and be stopped afterward.
 
 ## Current facts
 
@@ -32,7 +32,7 @@ Daniel Alkurdi is a technology lawyer in Sydney. His current public role is Lawy
 
 Policai is a curated public register of Australian federal, state, and territory AI policy, regulation, court guidance, and developments. Every record links to an official source. The live site was checked on 6 November 2026. Do not add volatile record counts.
 
-Legal Skills now documents one `legal-skills` plugin with 103 skills across 16 practice areas for Claude Cowork and ChatGPT Work. This replaces the outdated eleven-plugin, sixty-one-skill description. The public README was checked through GitHub on 6 November 2026. Preserve the existing emphasis on sources and human review.
+Legal Skills now documents one `legal-skills` plugin with 109 skills across 17 practice areas for Claude Cowork and ChatGPT Work. This replaces the outdated eleven-plugin, sixty-one-skill description. The public README was checked through GitHub on 10 November 2026. Preserve the existing emphasis on sources and human review.
 
 Harvey LAB pull requests 132, 133, 134, and 135 remain open as of 6 November 2026. That project remains hidden. Kitroom, CaseLaw Guard, Commodity, and SHGPR UCF Figures retain their current documented status and visibility.
 

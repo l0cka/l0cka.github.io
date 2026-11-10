@@ -17,8 +17,8 @@ npm run dev
 
 ## Deploy
 
-Pushing to `main` builds and deploys via GitHub Actions (`.github/workflows/pages.yml`).
+Pull requests run tests and the build. Pushing to `main` builds and deploys via GitHub Actions (`.github/workflows/pages.yml`).
 
 ```bash
-npm run build   # astro check + astro build → dist/
+npm run build   # astro check + astro build + rendered-HTML contract → dist/
 ```

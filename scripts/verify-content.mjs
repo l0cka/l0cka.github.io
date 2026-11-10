@@ -13,7 +13,7 @@ assert.match(index, /Current role/);
 assert.match(index, /Lawyer - Technology and Innovation/);
 assert.match(index, /Pro Bono \+ CSR team at Gilbert \+ Tobin/);
 assert.ok(index.indexOf("Current role") < index.indexOf('id="work"'), "Current role must appear before selected work");
-assert.match(projects, /One legal-skills plugin with 103 skills across 16 practice areas/);
+assert.match(projects, /One legal-skills plugin with 109 skills across 17 practice areas/);
 assert.match(projects, /Claude Cowork/);
 assert.match(projects, /ChatGPT Work/);
 assert.match(projects, /Every record links to an official source\./);

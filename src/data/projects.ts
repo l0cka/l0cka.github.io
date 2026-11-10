@@ -38,7 +38,7 @@ const projects: Project[] = [
     name: "Legal Skills",
     tagline: "Legal workflows for Claude Cowork and ChatGPT Work.",
     description:
-      "One legal-skills plugin with 103 skills across 16 practice areas for Australian legal work. Each workflow states its sources and where human review is required.",
+      "One legal-skills plugin with 109 skills across 17 practice areas for Australian legal work. Each workflow states its sources and where human review is required.",
     stack: ["Python", "Claude Cowork", "ChatGPT Work", "Legal research"],
     year: "2026",
     status: "Open source",
